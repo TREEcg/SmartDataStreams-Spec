@@ -33,7 +33,7 @@ Plan
 @prefix :       <> .
 
 <somePlan> a p-plan:Plan;
-  rdfs:commen "A epic plan to map csv to a LDES".
+  rdfs:comment "A epic plan to map csv to a LDES".
 ```
 
 Step 1: source
@@ -112,4 +112,7 @@ After executing this Plan a p-plan:Activity is created
 
 </div>
 
+The sds:Stream instance SHOULD have these properties:
+- `sds:dataset`: information about the current dataset containing information about license etc.  
+- `sds:carries`: information about the what record is being carried by the `sds:Stream`. This instance has type `sds:Record`.
 

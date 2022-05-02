@@ -23,9 +23,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="1.0672419"
-     inkscape:cx="82.924033"
-     inkscape:cy="257.67355"
+     inkscape:zoom="1.509308"
+     inkscape:cx="240.83885"
+     inkscape:cy="292.84944"
      inkscape:window-width="3440"
      inkscape:window-height="1413"
      inkscape:window-x="1920"
@@ -357,7 +357,7 @@
          id="tspan9442"
          style="stroke-width:0.264583"
          x="105.26764"
-         y="126.60242">sds:caries</tspan></text>
+         y="126.60242">sds:carries</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:7.7611px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';stroke-width:0.264583"
@@ -372,14 +372,14 @@
     <text
        xml:space="preserve"
        style="font-size:7.7611px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';stroke-width:0.264583"
-       x="1.7043293"
+       x="2.6357019"
        y="108.9517"
        id="text13646"><tspan
          sodipodi:role="line"
          id="tspan13644"
          style="stroke-width:0.264583"
-         x="1.7043293"
-         y="108.9517">prov:wasGeneratedBy</tspan></text>
+         x="2.6357019"
+         y="108.9517">p-plan:correspondsToStep</tspan></text>
     <g
        id="g16863">
       <rect
@@ -667,7 +667,7 @@
          y="241.61325">sds:ImmutableMember</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.794;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M -20.781105,151.05431 H -45.251967 V 27.553188 H 66.746496"
+       d="m 73.589173,73.945604 -56.031393,0 0,-46.392416 49.188716,0"
        id="path24678"
        sodipodi:nodetypes="cccc" />
     <path
@@ -834,13 +834,13 @@
     <text
        xml:space="preserve"
        style="font-size:7.7611px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';stroke-width:0.264583"
-       x="-46.308659"
-       y="24.172295"
+       x="19.914368"
+       y="71.231178"
        id="text29353"><tspan
          sodipodi:role="line"
          id="tspan29351"
          style="stroke-width:0.264583"
-         x="-46.308659"
-         y="24.172295">prov:used</tspan></text>
+         x="19.914368"
+         y="71.231178">prov:used</tspan></text>
   </g>
 </svg>
