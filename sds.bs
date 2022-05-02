@@ -8,8 +8,8 @@ URL: https://w3id.org/sds/specification
 Markup Shorthands: markdown yes
 Editor: Pieter Colpaert, https://pietercolpaert.be
 Editor: Arthur Vercruysse
-Repository: https://github.com/SEMICeu/SmartDataStream
-Abstract: A Smart Data Stream is a stream of object that has undergone transformations. These transformations are described using RDF. 
+Repository: https://github.com/TREEcg/SmartDataStreams-Spec
+Abstract: A Smart Data Stream is a stream of Records that have undergone Steps part of a Plan. These transformations are described using RDF. This metadata model helps determine the lineage of Records on a Stream. 
 </pre>
 
 # Overview # {#overview}
@@ -24,14 +24,14 @@ LDES exposes a stream of RDF members, these members often don't originate from R
  <thead> <tr><th>Prefix<th>Namespace
  <tr><th>dcat<td>[https://www.w3.org/ns/dcat#](https://www.w3.org/ns/dcat#)
  <tr><th>sds<td>[http://semweb.mmlab.be/ns/sds#](http://semweb.mmlab.be/ns/sds#)
- <tr><th>sh<td>[http://www.w3.org/ns/shacl](http://www.w3.org/ns/shacl#)
+ <tr><th>sh<td>[http://www.w3.org/ns/shacl#](http://www.w3.org/ns/shacl#)
  <tr><th>p-plan<td>[http://purl.org/net/p-plan#](http://purl.org/net/p-plan#)
  <tr><th>prov<td>[http://www.w3.org/ns/prov#](http://www.w3.org/ns/prov#)
 </table>
 
 <img width=100% src = "sds.svg"/>
 
-# Smart Data Stream vocabulary # {#overview}
+# Smart Data Stream vocabulary # {#vocabulary}
 
 The base URI for the Smart Data Stream vocabulary is [http://semweb.mmlab.be/ns/sds#]() and the preferred prefix is `sds:`.
 
@@ -72,7 +72,9 @@ This RDF is then bucketized based on the `foaf:label` property and is lastly exp
 @prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix p-plan: <http://purl.org/net/p-plan#> .
 @prefix prov:   <http://www.w3.org/ns/prov#> .
-@prefix :       <> .
+@prefix sds:    <http://semweb.mmlab.be/ns/sds#> .
+@prefix dcat:   <https://www.w3.org/ns/dcat#> .
+@prefix :       <#> .
 
 <somePlan> a p-plan:Plan;
   rdfs:comment "A epic plan to map csv file to a LDES".
