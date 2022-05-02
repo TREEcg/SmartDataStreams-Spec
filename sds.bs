@@ -12,13 +12,22 @@ Repository: https://github.com/SEMICeu/SmartDataStream
 Abstract: A Smart Data Stream is a stream of object that has undergone transformations. These transformations are described using RDF. 
 </pre>
 
-# Introduction # {#introduction}
+# Overview # {#overview}
 
 A Smart Data Stream (SDS) (`sds:Stream`) is an entity (`rdfs:subClassOf p-plan:Entity`) carrying Records (`sds:Record`) that is based on a dataset (`dcat:Dataset`) and can be built (`prov:used`) from a previous stream after applying a step (`p-plan:Step`).  
 
 This specification uses the [P-Plan specification](http://vocab.linkeddata.es/p-plan/) to describe previous steps taking that result in the current stream.
 With this description it is possible to determine the lineage of the data, especially useful with [Linked Data Event Stream](https://semiceu.github.io/LinkedDataEventStreams/).
 LDES exposes a stream of RDF members, these members often don't originate from RDF data but from, for example, sensor observations.
+
+<table>
+ <thead> <tr><th>Prefix<th>Namespace
+ <tr><th>dcat<td>[https://www.w3.org/ns/dcat#](https://www.w3.org/ns/dcat#)
+ <tr><th>sds<td>[http://semweb.mmlab.be/ns/sds#](http://semweb.mmlab.be/ns/sds#)
+ <tr><th>sh<td>[http://www.w3.org/ns/shacl](http://www.w3.org/ns/shacl#)
+ <tr><th>p-plan<td>[http://purl.org/net/p-plan#](http://purl.org/net/p-plan#)
+ <tr><th>prov<td>[http://www.w3.org/ns/prov#](http://www.w3.org/ns/prov#)
+</table>
 
 <img width=100% src = "sds.svg"/>
 
@@ -76,7 +85,6 @@ Step 4: actually expose a LDES
   rdfs:comment "Expose LDES".
 ```
 
-
 After executing this Plan a p-plan:Activity is created
 ```turtle
 <rmlProc> a p-plan:Activity; 
@@ -108,6 +116,7 @@ After executing this Plan a p-plan:Activity is created
   ];
   prov:startedAtTime "1650889052".
 
+
 <ldesServer> a p-plan:Activity;
   p-plan:correspondsToStep <ldesStep>;
   prov:used [
@@ -127,7 +136,20 @@ After executing this Plan a p-plan:Activity is created
 
 </div>
 
-The sds:Stream instance SHOULD have these properties:
-- `sds:dataset`: information about the current dataset containing information about license etc.  
-- `sds:carries`: information about the what record is being carried by the `sds:Stream`. This instance has type `sds:Record`.
+# Smart Data Stream vocabulary # {#overview}
 
+The base URI for the Smart Data Stream vocabulary is [http://semweb.mmlab.be/ns/sds#]() and the preferred prefix is `sds:`.
+
+The vocabulary exists of one main class `sds:Stream` a subclass of `p-plan:Entity` representing a stream of `sds:Record`.
+
+A Stream (`sds:Stream`) contains the following properties, extending the properties from `p-plan:Entity`.
+
+- `sds:dataset`: information about the current dataset containing information about license etc.  
+- `sds:carries`: information about the what record is being carried.
+
+<table>
+ <thead> <tr><th>Property<th>Domain<th>Range
+ <tr><th>sds:dataset<td>sds:Stream<td>dcat:Dataset
+ <tr><th>sds:carries<td>sds:Stream<td>sds:Record
+ <tr><th>sds:shape<td>sds:Record<td>sh:NodeShape
+</table>
