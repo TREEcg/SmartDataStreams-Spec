@@ -22,6 +22,8 @@ LDES exposes a stream of RDF members, these members often don't originate from R
 
 <img width=100% src = "sds.svg"/>
 
+
+
 <div class="example">
 An example of a plan transforming sensor data into a LDES.
 
@@ -77,6 +79,19 @@ Step 4: actually expose a LDES
 
 After executing this Plan a p-plan:Activity is created
 ```turtle
+<rmlProc> a p-plan:Activity; 
+  p-plan:correspondsToStep <rmlStep>; 
+  prov:used [
+    a sds:Stream; 
+    prov:wasGeneratedBy <inputRead>; 
+    sds:carries [ a sds:Member; 
+      sds:Shape  <sh>; ]; 
+    p-plan:correspondsToVariable :stream#1; 
+    sds:dataset [ a  dcat:Dataset ] 
+  ]; 
+  prov:startedAtTime "1650886052".  
+
+
 <bucketization> a p-plan:Activiy;
   p-plan:correspondsToStep <bucketStep>;
   prov:used [
