@@ -31,111 +31,6 @@ LDES exposes a stream of RDF members, these members often don't originate from R
 
 <img width=100% src = "sds.svg"/>
 
-
-
-<div class="example">
-An example of a plan transforming sensor data into a LDES.
-
-Plan
-```turtle
-@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix p-plan: <http://purl.org/net/p-plan#> .
-@prefix prov:   <http://www.w3.org/ns/prov#> .
-@prefix :       <> .
-
-<somePlan> a p-plan:Plan;
-  rdfs:comment "A epic plan to map csv to a LDES".
-```
-
-Step 1: source
-```turtle
-<readStep> a p-plan:Step;
-  p-plan:hasInputVar :csvLocation#1;
-  p-plan:isStepOfPlan <somePlan>;
-  p-plan:hasOutputVar :stream#1.
-```
-
-Step 2: RML process resulting in a new stream
-```turtle
-<rmlStep> a p-plan:Step;
-  a rmlStep;
-  p-plan:hasInputVar :rmlConfig#1, :stream#1;
-  p-plan:hasOutputVar :stream#2;
-  p-plan:isPreceededBy <readStep>;
-  p-plan:isStepOfPlan <somePlan>;
-  rdfs:comment "Map CSV rows to RML".
-```
-
-Step 3: bucketization to facilitate fragmentation
-```turtle
-<bucketStep> a p-plan:Step;
-  p-plan:hasInputVar :bucketConfig#1, :stream#2;
-  p-plan:hasOutputVar :stream#3;
-  p-plan:isPreceededBy <rmlStep>;
-  p-plan:isStepOfPlan <somePlan>;
-  rdfs:comment "Add geospatial bucketization".
-```
-
-Step 4: actually expose a LDES
-```turtle
-<ldesStep> a p-plan:Step;
-  p-plan:hasInputVar :ldesServerConfig#1, :stream#3;
-  p-plan:isPreceededBy <bucketStep>;
-  p-plan:isStepOfPlan <epicPlan>;
-  rdfs:comment "Expose LDES".
-```
-
-After executing this Plan a p-plan:Activity is created
-```turtle
-<rmlProc> a p-plan:Activity; 
-  p-plan:correspondsToStep <rmlStep>; 
-  prov:used [
-    a sds:Stream; 
-    prov:wasGeneratedBy <inputRead>; 
-    sds:carries [ a sds:Member; 
-      sds:Shape  <sh>; ]; 
-    p-plan:correspondsToVariable :stream#1; 
-    sds:dataset [ a  dcat:Dataset ] 
-  ]; 
-  prov:startedAtTime "1650886052".  
-
-
-<bucketization> a p-plan:Activiy;
-  p-plan:correspondsToStep <bucketStep>;
-  prov:used [
-      a sds:Stream;
-      prov:wasGeneratedBy <rmlProc>;
-      sds:carries [ a sds:Member; 
-        sds:Shape <sh>; ];
-      p-plan:correspondsToVariable :stream#2;
-      sds:dataset [ a dcat:Dataset ]
-  ], [
-      ldes:bucketType "substring";
-      ldes:propertyPath foaf:name;
-      ldes:bucketPath ldes:substringBucket;
-  ];
-  prov:startedAtTime "1650889052".
-
-
-<ldesServer> a p-plan:Activity;
-  p-plan:correspondsToStep <ldesStep>;
-  prov:used [
-    a sds:Stream;
-    prov:wasGeneratedBy <bucketization>;
-    sds:carries [
-      a ImmutableMember;
-      sds:shape <sh> ];
-    p-plan:correspondsToVariable :stream#3;
-    sds:dataset [ a dcat:Dataset ]
-  ], [
-    ldes:view "abc.com/epicLDES";
-    p-plan:correspondsToVariable :ldesServerConfig#1
-  ];
-  prov:startedAtTime "1650889452".
-```
-
-</div>
-
 # Smart Data Stream vocabulary # {#overview}
 
 The base URI for the Smart Data Stream vocabulary is [http://semweb.mmlab.be/ns/sds#]() and the preferred prefix is `sds:`.
@@ -147,9 +42,167 @@ A Stream (`sds:Stream`) contains the following properties, extending the propert
 - `sds:dataset`: information about the current dataset containing information about license etc.  
 - `sds:carries`: information about the what record is being carried.
 
+A Member (`sds:Member`) contains the following property.
+
+- `sds:shape`: contains the shape of the actual member that is carried of the stream. 
+
+
+Note: `sds:shape` differs from `tree:shape`. `tree:shape` indicates the shape of the members when queried from a LDES. 
+`sds:shape` denotes the actual shape of the members on a `sds:Stream`. 
+When bucketising it is not expected that the `tree:shape` changes but bucketization can add new properties to the `sds:Member` thus changing the `sds:shape`.
+
 <table>
  <thead> <tr><th>Property<th>Domain<th>Range
  <tr><th>sds:dataset<td>sds:Stream<td>dcat:Dataset
  <tr><th>sds:carries<td>sds:Stream<td>sds:Record
  <tr><th>sds:shape<td>sds:Record<td>sh:NodeShape
 </table>
+
+
+# Examples # {#examples}
+
+This section is non-normative.
+
+When creating a `sds:Stream` the user should create a `p-plan:Plan` indicating the expected transformations on the data stream.
+
+This example goes through a plan that starts from a csv file, transforms it to RDF with a RML Mapper. 
+This RDF is then bucketized based on the `foaf:label` property and is lastly exposed as a LDES. 
+
+```turtle
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix p-plan: <http://purl.org/net/p-plan#> .
+@prefix prov:   <http://www.w3.org/ns/prov#> .
+@prefix :       <> .
+
+<somePlan> a p-plan:Plan;
+  rdfs:comment "A epic plan to map csv file to a LDES".
+
+
+<csvLocationVar> a p-plan:Variable;
+  p-plan:isVariableOfPlan <somePlan>;
+  rdfs:comment "Location of the CSV file".
+  
+:csvLocation#1 rdfs:subClassOf <csvLocationVar>.
+
+<rmlConfigVar> a p-plan:Variable;
+  p-plan:isVariableOfPlan <somePlan>;
+  rdfs:comment "Location of RML config file".
+
+:rmlConfig#1 rdfs:subClassOf <rmlConfigVar>.
+
+<bucketConfigVar> a p-plan:Variable;
+  p-plan:isVariableOfPlan <somePlan>;
+  rdfs:comment "Location of RML config file".
+  
+:bucketConfig#1 rdfs:subClassOf <bucketConfigVar>.
+
+<ldesServerConfigVar> a p-plan:Variable;
+  p-plan:isVariableOfPlan <ldesServerConfig>;
+  rdfs:subClassOf <LdesConfig>.
+  
+:ldesServerConfig#1 rdfs:subClassOf <ldesServerConfigVar>.
+
+<streamVar> a p-plan:Variable;
+  p-plan:isVariableOfPlan <somePlan>;
+  rdfs:subClassOf <Channel>.
+  
+:stream#1 rdfs:subClassOf <streamVar>.
+:stream#2 rdfs:subClassOf <streamVar>.
+:stream#3 rdfs:subClassOf <streamVar>.
+
+
+<readStep> a p-plan:Step;
+  p-plan:hasInputVar :csvLocation#1;
+  p-plan:isStepOfPlan <somePlan>;
+  p-plan:hasOutputVar :stream#1.
+
+<rmlStep> a p-plan:Step;
+  a rmlStep;
+  p-plan:hasInputVar :rmlConfig#1, :stream#1;
+  p-plan:hasOutputVar :stream#2;
+  p-plan:isPreceededBy <readStep>;
+  p-plan:isStepOfPlan <somePlan>;
+  rdfs:comment "Map CSV rows to RML".
+
+<bucketStep> a p-plan:Step;
+  p-plan:hasInputVar :bucketConfig#1, :stream#2;
+  p-plan:hasOutputVar :stream#3;
+  p-plan:isPreceededBy <rmlStep>;
+  p-plan:isStepOfPlan <somePlan>;
+  rdfs:comment "Add geospatial bucketization".
+
+<ldesStep> a p-plan:Step;
+  p-plan:hasInputVar :ldesServerConfig#1, :stream#3;
+  p-plan:isPreceededBy <bucketStep>;
+  p-plan:isStepOfPlan <epicPlan>;
+  rdfs:comment "Expose LDES".
+```
+
+Note: This is my understanding of how `p-plan:Variable` work, please update if wrong.
+
+Note: This `p-plan:Plan` does not explicitely inform how to connect these Steps together, see the Connector Architecture for this.
+
+
+Activities can be generated after running the steps of the plan.
+These activities are each linked to a corresponding Step.
+
+```turtle
+
+<readCsv> a p-plan:Activity;
+  p-plan:correspondsToStep <readStep>;
+  prov:used [
+    a void:Dataset;
+    void:dataDump <file:///data/input.csv>;
+  ].
+
+<csvStream> a sds:Stream;
+    prov:wasGeneratedBy <readCsv>; 
+    sds:carries [ a sds:Member; 
+      sds:Shape  <sh>; ]; 
+    p-plan:correspondsToVariable :stream#1; 
+    sds:dataset [ a  dcat:Dataset ]. 
+
+
+<rmlProc> a p-plan:Activity; 
+  p-plan:correspondsToStep <rmlStep>; 
+  prov:used <csvStream>, [
+      rml:Location "somewhere";
+      p-plan:correspondsToVariable :rmlConfig#1;
+  ]; 
+  prov:startedAtTime "1650886052".  
+
+<rmlStream> a sds:Stream;
+  a sds:Stream;
+  prov:wasGeneratedBy <rmlProc>;
+  sds:carries [ a sds:Member; 
+    sds:Shape <sh>; ];
+  p-plan:correspondsToVariable :stream#2;
+  sds:dataset [ a dcat:Dataset ].
+
+<bucketization> a p-plan:Activiy;
+  p-plan:correspondsToStep <bucketStep>;
+  prov:used <rmlStream>, [
+      ldes:bucketType "substring";
+      ldes:propertyPath foaf:name;
+      ldes:bucketPath ldes:substringBucket;
+  ];
+  prov:startedAtTime "1650889052".
+
+<bucketizedStream> a sds:Stream;
+    prov:wasGeneratedBy <bucketization>;
+    sds:carries [
+      a ImmutableMember;
+      sds:shape <sh> ];
+    p-plan:correspondsToVariable :stream#3;
+    sds:dataset [ a dcat:Dataset ]
+
+<ldesServer> a p-plan:Activity;
+  p-plan:correspondsToStep <ldesStep>;
+  prov:used <bucketizedStream>, [
+    ldes:view "abc.com/epicLDES";
+    p-plan:correspondsToVariable :ldesServerConfig#1
+  ];
+  prov:startedAtTime "1650889452".
+```
+
+
