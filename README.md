@@ -20,5 +20,5 @@ Through pull requests.
 
 ## Acknowledgements
 
-This work is financed by the SEMIC programme of the European Commission.
+This work is financed by the SEMIC programme of the European Commission and the Flemish Smart Data Space project
 
