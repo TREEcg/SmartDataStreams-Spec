@@ -21,9 +21,13 @@ generated (`prov:wasGeneratedBy`) as a result of an activity (`p-plan:Activity`)
 It generates a new dataset (`sds:dataset`),
 consisting of the aforementioned records, for the next activity. 
 
-This specification uses the [P-Plan specification](http://vocab.linkeddata.es/p-plan/) to describe previous steps taking that result in the current stream.
-With this description it is possible to determine the lineage of the data, especially useful with [Linked Data Event Stream](https://semiceu.github.io/LinkedDataEventStreams/).
-LDES exposes a stream of RDF members, these members often don't originate from RDF data but from, for example, sensor observations.
+This specification uses the [P-Plan specification](http://vocab.linkeddata.es/p-plan/)
+to describe activites from which Smart Data Streams are generated.  
+Furthermore, the P-Plan specification makes it possible to determine the 
+lineage of the data which is a crucial part of 
+[Linked Data Event Stream](https://semiceu.github.io/LinkedDataEventStreams/).
+LDES exposes a stream of RDF members, these members often do not originate from RDF
+data but from, for example, sensor observations.
 
 <table>
  <thead> <tr><th>Prefix<th>Namespace
