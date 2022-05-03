@@ -14,7 +14,12 @@ Abstract: A Smart Data Stream is a stream of Records that have undergone Steps p
 
 # Overview # {#overview}
 
-A Smart Data Stream (SDS) (`sds:Stream`) is an entity (`rdfs:subClassOf p-plan:Entity`) carrying Records (`sds:Record`) that is based on a dataset (`dcat:Dataset`) and can be built (`prov:used`) from a previous stream after applying a step (`p-plan:Step`).  
+A Smart Data Stream (SDS) (`sds:Stream`) is an entity 
+(`rdfs:subClassOf p-plan:Entity`), 
+which carries (`sds:carries`) a stream of data records (`sds:Record`)
+generated (`prov:wasGeneratedBy`) as a result of an activity (`p-plan:Activity`).
+It generates a new dataset (`sds:dataset`),
+consisting of the aforementioned records, for the next activity. 
 
 This specification uses the [P-Plan specification](http://vocab.linkeddata.es/p-plan/) to describe previous steps taking that result in the current stream.
 With this description it is possible to determine the lineage of the data, especially useful with [Linked Data Event Stream](https://semiceu.github.io/LinkedDataEventStreams/).
