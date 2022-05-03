@@ -1,6 +1,6 @@
-# The Smart Data Streams specification
+# The Smart Data Specification for Semantically Describing Streams
 
-A Smart Data Stream is a stream of objects that have undergone transformations. These transformations are described in RDF.
+A `sds:Stream` is a stream of objects that have undergone transformations. These transformations are described in RDF.
 
 The objective of a Smart Data Stream is to have a semantically described stream. This information contains the lineage of the stream.
 
