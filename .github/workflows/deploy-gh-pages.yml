@@ -22,6 +22,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+      
+      - name: Create dist directory
+        run: mkdir dist
 
         # Runs a single command using the runners shell
       - name: Publish Bikeshed document
@@ -32,12 +35,12 @@ jobs:
           # The source file
           source: sds.bs # optional, default is index.bs
           # The destination file
-          destination: index.html # optional, default is index.html
+          destination: dist/index.html # optional, default is index.html
           
      # Publish to gh-pages
       - name: Publish HTML to GitHub Pages
-        if: success()
         uses: peaceiris/actions-gh-pages@v3
         with:
           target_branch: gh-pages
+          publish_dir: ./dist
           github_token: ${{ secrets.GITHUB_TOKEN }}
