@@ -37,6 +37,8 @@ jobs:
       - name: Init new repo in dist folder and commit generated files
         run: |
           git add -A
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git commit -m 'deploy gh-pages'
 
       - name: Force push to destination branch
