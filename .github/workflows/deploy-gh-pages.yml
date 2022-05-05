@@ -34,14 +34,10 @@ jobs:
           # The destination file
           destination: index.html # optional, default is index.html
           
-      - name: Commit and Push Branch
-        # You may pin to the exact commit or the version.
-        # uses: dsayling/commit-branch-check-action@bf76e20ce664016307431ce48b360f05ba7ae1ed
-        uses: dsayling/commit-branch-check-action@v0.1.0
+     # Publish to gh-pages
+      - name: Publish HTML to GitHub Pages
+        if: success()
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          # Github Token with write permissions
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          # Branch to push to after commit
-          dest-branch: gh-pages
-          # Specific files to add before the commit.
-          files: index.html
+          target_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
