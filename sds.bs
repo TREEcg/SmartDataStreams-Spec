@@ -32,7 +32,7 @@ data but from, for example, sensor observations.
 <table>
  <thead> <tr><th>Prefix<th>Namespace
  <tr><th>dcat<td>[https://www.w3.org/ns/dcat#](https://www.w3.org/ns/dcat#)
- <tr><th>sds<td>[http://semweb.mmlab.be/ns/sds#](http://semweb.mmlab.be/ns/sds#)
+ <tr><th>sds<td>[https://w3id.org/sds#](https://w3id.org/sds#)
  <tr><th>sh<td>[http://www.w3.org/ns/shacl#](http://www.w3.org/ns/shacl#)
  <tr><th>p-plan<td>[http://purl.org/net/p-plan#](http://purl.org/net/p-plan#)
  <tr><th>prov<td>[http://www.w3.org/ns/prov#](http://www.w3.org/ns/prov#)
