@@ -14,6 +14,8 @@ Abstract: A Semantically Described Stream is a stream of Records that have under
 
 # Overview # {#overview}
 
+The latest OWL encoding of the SDS Ontology can be found [here](./sds.ttl).
+
 A Semantically Described Stream (SDS) (`sds:Stream`) is an entity 
 (`rdfs:subClassOf p-plan:Entity`), 
 which carries (`sds:carries`) a stream of data records (`sds:Record`)
