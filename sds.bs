@@ -44,7 +44,7 @@ data but from, for example, sensor observations.
 
 # Smart Data Stream vocabulary # {#vocabulary}
 
-The base URI for the Smart Data Specification’s vocabulary is [https://w3id.org/sds#]() and the preferred prefix is `sds:`.
+The base URI for the Smart Data Specification’s vocabulary is [https://w3id.org/sds#](https://w3id.org/sds#) and the preferred prefix is `sds:`.
 
 The vocabulary exists of one main class `sds:Stream` a subclass of `p-plan:Entity` representing a stream of `sds:Record`.
 
