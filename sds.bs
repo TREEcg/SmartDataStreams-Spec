@@ -46,27 +46,50 @@ data but from, for example, sensor observations.
 
 The base URI for the Smart Data Specification’s vocabulary is [https://w3id.org/sds#](https://w3id.org/sds#) and the preferred prefix is `sds:`.
 
-The vocabulary exists of one main class `sds:Stream` a subclass of `p-plan:Entity` representing a stream of `sds:Record`.
+The vocabulary exists of two main classes: `sds:Stream` a subclass of `p-plan:Entity` representing a stream of `sds:Record` 
+and `sds:Record` the baseclass the contains data. 
 
 A Stream (`sds:Stream`) contains the following properties, extending the properties from `p-plan:Entity`.
 
 - `sds:dataset`: information about the current dataset containing information about license etc.  
 - `sds:carries`: information about the what record is being carried.
 
-A Member (`sds:Member`) contains the following property.
+A Record (`sds:Record`) contains the following properties:
+- `sds:stream`: the identifier of the corresponding stream.
+- `sds:payload`: the payload of the record
 
-- `sds:shape`: contains the shape of the actual member that is carried of the stream. 
+A Member (`sds:Member`) subclasses `sds:Record`. `sds:Member` specifies that `sds:payload` points to the identifier of the member.
 
+A Member can also have some of the following property:
+- `sds:bucket`: indicating this member is part of an `sds:Bucket`
 
-Note: `sds:shape` differs from `tree:shape`. `tree:shape` indicates the shape of the members when queried from a LDES. 
-`sds:shape` denotes the actual shape of the members on a `sds:Stream`. 
-When bucketising it is not expected that the `tree:shape` changes but bucketization can add new properties to the `sds:Member` thus changing the `sds:shape`.
+Buckets (`sds:Bucket`) can be used to create `tree:Collection` and contain the following properties:
+ - `sds:relationType`: specifies the type of relation
+ - `sds:relationBucket`: specifies the target bucket for this relation
+ - `sds:relationValue`: specifies the value (similar to `tree:value`)
+ - `sds:relationPath`: specifies the path (similar to `tree:path`)
+
 
 <table>
  <thead> <tr><th>Property<th>Domain<th>Range
+  <tr style="background-color: black">
+    <td colspan="100%"></td>
+  </tr>
  <tr><th>sds:dataset<td>sds:Stream<td>dcat:Dataset
  <tr><th>sds:carries<td>sds:Stream<td>sds:Record
- <tr><th>sds:shape<td>sds:Record<td>sh:NodeShape
+  <tr style="background-color: black">
+    <td colspan="100%"></td>
+  </tr>
+  <tr><th>sds:stream<td>sds:Record<td>sds:Stream
+ <tr><th>sds:payload<td>sds:Record<td>any
+ <tr><th>sds:bucket<td>sds:Member<td>IRI
+  <tr style="background-color: black">
+    <td colspan="100%"></td>
+  </tr>
+ <tr><th>sds:relationType<td>sds:Bucket<td>tree:Relation
+ <tr><th>sds:relationBucket<td>sds:Bucket<td>sds:Bucket
+ <tr><th>sds:relationValue<td>sds:Bucket<td>any
+ <tr><th>sds:relationPath<td>sds:Bucket<td>any
 </table>
 
 
@@ -78,6 +101,7 @@ When creating a `sds:Stream` the user should create a `p-plan:Plan` indicating t
 
 This example goes through a plan that starts from a csv file, transforms it to RDF with a RML Mapper. 
 This RDF is then bucketized based on the `foaf:label` property and is lastly exposed as a LDES. 
+
 
 ```turtle
 @prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
