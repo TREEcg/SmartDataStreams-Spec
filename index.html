@@ -1223,7 +1223,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 5f7b0e20, updated Tue Aug 18 15:46:28 2020 -0700" name="generator">
   <link href="https://w3id.org/sds/specification" rel="canonical">
-  <meta content="bb4ccc0e8e73867c37d2e2b8188f11f20c76a89c" name="document-revision">
+  <meta content="f4364456034bc203bafaf88ea6ee6452965cb3a3" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1433,7 +1433,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">The Smart Data Specification for Semantically Describing Streams (SDS)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2022-05-25">25 May 2022</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2022-06-28">28 June 2022</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1448,7 +1448,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 25 May 2022,
+In addition, as of 28 June 2022,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -1462,9 +1462,26 @@ Parts of this work may be from another specification document.  If so, those par
   <nav data-fill-with="table-of-contents" id="toc">
    <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
    <ol class="toc" role="directory">
-    <li><a href="#overview"><span class="secno">1</span> <span class="content">Overview</span></a>
-    <li><a href="#vocabulary"><span class="secno">2</span> <span class="content">Smart Data Stream vocabulary</span></a>
-    <li><a href="#examples"><span class="secno">3</span> <span class="content">Examples</span></a>
+    <li>
+     <a href="#overview"><span class="secno">1</span> <span class="content">Overview</span></a>
+     <ol class="toc">
+      <li><a href="#sds-description"><span class="secno">1.1</span> <span class="content">SDS Description</span></a>
+      <li><a href="#sds-data"><span class="secno">1.2</span> <span class="content">SDS Data</span></a>
+      <li><a href="#overview-of-used-onthologies"><span class="secno">1.3</span> <span class="content">Overview of used onthologies</span></a>
+     </ol>
+    <li>
+     <a href="#vocabulary"><span class="secno">2</span> <span class="content">Smart Data Stream vocabulary</span></a>
+     <ol class="toc">
+      <li><a href="#sds-description①"><span class="secno">2.1</span> <span class="content">SDS Description</span></a>
+      <li><a href="#sds-data①"><span class="secno">2.2</span> <span class="content">SDS Data</span></a>
+      <li><a href="#properties-overview"><span class="secno">2.3</span> <span class="content">Properties overview</span></a>
+     </ol>
+    <li>
+     <a href="#examples"><span class="secno">3</span> <span class="content">Examples</span></a>
+     <ol class="toc">
+      <li><a href="#sds-description②"><span class="secno">3.1</span> <span class="content">SDS Description</span></a>
+      <li><a href="#sds-data②"><span class="secno">3.2</span> <span class="content">SDS Data</span></a>
+     </ol>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
      <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
@@ -1476,17 +1493,24 @@ Parts of this work may be from another specification document.  If so, those par
   <main>
    <h2 class="heading settled" data-level="1" id="overview"><span class="secno">1. </span><span class="content">Overview</span><a class="self-link" href="#overview"></a></h2>
    <p>The latest OWL encoding of the SDS Ontology can be found <a href="./sds.ttl">here</a>.</p>
-   <p>A Semantically Described Stream (SDS) (<code>sds:Stream</code>) is an entity
-(<code>rdfs:subClassOf p-plan:Entity</code>), 
+   <p>A Semantically Described Stream (SDS) consists of two parts, the SDS description and the SDS data.
+The description consists of the lineage of the elements on the data stream.</p>
+   <h3 class="heading settled" data-level="1.1" id="sds-description"><span class="secno">1.1. </span><span class="content">SDS Description</span><a class="self-link" href="#sds-description"></a></h3>
+   <p><code>sds:Stream</code> is an entity (<code>rdfs:subClassOf p-plan:Entity</code>),
 which carries (<code>sds:carries</code>) a stream of data records (<code>sds:Record</code>)
 generated (<code>prov:wasGeneratedBy</code>) as a result of an activity (<code>p-plan:Activity</code>).
 It generates a new dataset (<code>sds:dataset</code>),
 consisting of the aforementioned records, for the next activity.</p>
-   <p>This specification uses the <a href="http://vocab.linkeddata.es/p-plan/">P-Plan specification</a> to describe activites from which Streams (<code>sds:Stream</code>s) are generated.  
+   <p>This specification uses the <a href="http://vocab.linkeddata.es/p-plan/">P-Plan specification</a> to describe activities from which Streams (<code>sds:Stream</code>) are generated.  
 Furthermore, the P-Plan specification makes it possible to determine the 
-lineage of the data which is a crucial part of <a href="https://semiceu.github.io/LinkedDataEventStreams/">Linked Data Event Stream</a>.
+lineage of the data. This is a crucial part of <a href="https://semiceu.github.io/LinkedDataEventStreams/">Linked Data Event Stream</a>.
 LDES exposes a stream of RDF members, these members often do not originate from RDF
-data but from, for example, sensor observations.</p>
+data but originating from, for example, sensor observations.</p>
+   <h3 class="heading settled" data-level="1.2" id="sds-data"><span class="secno">1.2. </span><span class="content">SDS Data</span><a class="self-link" href="#sds-data"></a></h3>
+   <p>A <code>sds:Record</code> instance describes a data point. This instance links together the data and the stream that generated (or used) that data.
+This instance can also have other properties that were created or generated by the process generating the stream.
+All instances of <code>sds:Record</code> MUST conform to the shape specified in the SDS description for property <code>sds:shape</code>, this property is however optional.</p>
+   <h3 class="heading settled" data-level="1.3" id="overview-of-used-onthologies"><span class="secno">1.3. </span><span class="content">Overview of used onthologies</span><a class="self-link" href="#overview-of-used-onthologies"></a></h3>
    <table>
     <thead>
      <tr>
@@ -1511,27 +1535,56 @@ data but from, for example, sensor observations.</p>
    <p><img src="sds.svg" width="100%"></p>
    <h2 class="heading settled" data-level="2" id="vocabulary"><span class="secno">2. </span><span class="content">Smart Data Stream vocabulary</span><a class="self-link" href="#vocabulary"></a></h2>
    <p>The base URI for the Smart Data Specification’s vocabulary is <a href="https://w3id.org/sds#">https://w3id.org/sds#</a> and the preferred prefix is <code>sds:</code>.</p>
-   <p>The vocabulary exists of one main class <code>sds:Stream</code> a subclass of <code>p-plan:Entity</code> representing a stream of <code>sds:Record</code>.</p>
-   <p>A Stream (<code>sds:Stream</code>) contains the following properties, extending the properties from <code>p-plan:Entity</code>.</p>
+   <p>The vocabulary exists of two main classes: <code>sds:Stream</code> a subclass of <code>p-plan:Entity</code> representing a stream of <code>sds:Record</code> which contain the actual data.</p>
+   <h3 class="heading settled" data-level="2.1" id="sds-description①"><span class="secno">2.1. </span><span class="content">SDS Description</span><a class="self-link" href="#sds-description①"></a></h3>
+   <p>A Stream (<code>sds:Stream</code>) extends Entity (<code>p-plan:Entity</code>) and contains additional properties:</p>
    <ul>
     <li data-md>
      <p><code>sds:dataset</code>: information about the current dataset containing information about license etc.</p>
     <li data-md>
      <p><code>sds:carries</code>: information about the what record is being carried.</p>
+    <li data-md>
+     <p><code>sds:shape</code>: optionally specifies the shape of records on this stream.</p>
    </ul>
-   <p>A Member (<code>sds:Member</code>) contains the following property.</p>
+   <h3 class="heading settled" data-level="2.2" id="sds-data①"><span class="secno">2.2. </span><span class="content">SDS Data</span><a class="self-link" href="#sds-data①"></a></h3>
+   <p>A Record (<code>sds:Record</code>) contains the following properties:</p>
    <ul>
     <li data-md>
-     <p><code>sds:shape</code>: contains the shape of the actual member that is carried of the stream.</p>
+     <p><code>sds:stream</code>: the identifier of the corresponding stream.</p>
+    <li data-md>
+     <p><code>sds:payload</code>: the payload of the record</p>
    </ul>
-   <p class="note" role="note"><span>Note:</span> <code>sds:shape</code> differs from <code>tree:shape</code>. <code>tree:shape</code> indicates the shape of the members when queried from a LDES. <code>sds:shape</code> denotes the actual shape of the members on a <code>sds:Stream</code>. 
-When bucketising it is not expected that the <code>tree:shape</code> changes but bucketization can add new properties to the <code>sds:Member</code> thus changing the <code>sds:shape</code>.</p>
+   <p>A Member (<code>sds:Member</code>) subclasses <code>sds:Record</code> and has the same properties.
+The range of <code>sds:payload</code> is different:</p>
+   <ul>
+    <li data-md>
+     <p><code>sds:payload</code>: points to the identifier of the member.</p>
+   </ul>
+   <p>A Member can also have some of the following property:</p>
+   <ul>
+    <li data-md>
+     <p><code>sds:bucket</code>: indicating this member is part of an <code>sds:Bucket</code></p>
+   </ul>
+   <p>Buckets (<code>sds:Bucket</code>) can be used to create <code>tree:Collection</code> and contain the following properties:</p>
+   <ul>
+    <li data-md>
+     <p><code>sds:relationType</code>: specifies the type of relation</p>
+    <li data-md>
+     <p><code>sds:relationBucket</code>: specifies the target bucket for this relation</p>
+    <li data-md>
+     <p><code>sds:relationValue</code>: specifies the value (similar to <code>tree:value</code>)</p>
+    <li data-md>
+     <p><code>sds:relationPath</code>: specifies the path (similar to <code>tree:path</code>)</p>
+   </ul>
+   <h3 class="heading settled" data-level="2.3" id="properties-overview"><span class="secno">2.3. </span><span class="content">Properties overview</span><a class="self-link" href="#properties-overview"></a></h3>
    <table>
     <thead>
      <tr>
       <th>Property
       <th>Domain
       <th>Range 
+     <tr style="background-color: black">
+      <td colspan="100%">
      <tr>
       <th>sds:dataset
       <td>sds:Stream
@@ -1539,91 +1592,131 @@ When bucketising it is not expected that the <code>tree:shape</code> changes but
      <tr>
       <th>sds:carries
       <td>sds:Stream
-      <td>sds:Record 
+      <td>rdfs:Class 
      <tr>
       <th>sds:shape
+      <td>sds:Stream
+      <td>sh:ShapeNode 
+     <tr style="background-color: black">
+      <td colspan="100%">
+     <tr>
+      <th>sds:stream
       <td>sds:Record
-      <td>sh:NodeShape 
+      <td>sds:Stream 
+     <tr>
+      <th>sds:payload
+      <td>sds:Record
+      <td>any 
+     <tr>
+      <th>sds:payload
+      <td>sds:Member
+      <td>IRI 
+     <tr>
+      <th>sds:bucket
+      <td>sds:Member
+      <td>sds:Bucket 
+     <tr style="background-color: black">
+      <td colspan="100%">
+     <tr>
+      <th>sds:relationType
+      <td>sds:Bucket
+      <td>tree:Relation 
+     <tr>
+      <th>sds:relationBucket
+      <td>sds:Bucket
+      <td>sds:Bucket 
+     <tr>
+      <th>sds:relationValue
+      <td>sds:Bucket
+      <td>any 
+     <tr>
+      <th>sds:relationPath
+      <td>sds:Bucket
+      <td>IRI 
    </table>
    <h2 class="heading settled" data-level="3" id="examples"><span class="secno">3. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h2>
    <p>This section is non-normative.</p>
+   <h3 class="heading settled" data-level="3.1" id="sds-description②"><span class="secno">3.1. </span><span class="content">SDS Description</span><a class="self-link" href="#sds-description②"></a></h3>
    <p>When creating a <code>sds:Stream</code> the user should create a <code>p-plan:Plan</code> indicating the expected transformations on the data stream.</p>
-   <p>This example goes through a plan that starts from a csv file, transforms it to RDF with a RML Mapper.
-This RDF is then bucketized based on the <code>foaf:label</code> property and is lastly exposed as a LDES.</p>
-<pre class="language-turtle highlight"><c- k>@prefix</c-> <c- nn>rdfs:</c->   <c- g>&lt;http://www.w3.org/2000/01/rdf-schema#></c-> <c- p>.</c->
-<c- k>@prefix</c-> <c- nn>p-plan:</c-> <c- g>&lt;http://purl.org/net/p-plan#></c-> <c- p>.</c->
-<c- k>@prefix</c-> <c- nn>prov:</c->   <c- g>&lt;http://www.w3.org/ns/prov#></c-> <c- p>.</c->
-<c- k>@prefix</c-> <c- nn>sds:</c->    <c- g>&lt;http://semweb.mmlab.be/ns/sds#></c-> <c- p>.</c->
-<c- k>@prefix</c-> <c- nn>dcat:</c->   <c- g>&lt;https://www.w3.org/ns/dcat#></c-> <c- p>.</c->
-<c- k>@prefix</c-> <c- nn>:</c->       <c- g>&lt;#></c-> <c- p>.</c->
+   <p>The example covers a plan that starts from a csv file, transforms it to RDF with a RML Mapper.
+The generated RDF is bucketized based on the <code>foaf:label</code> property and is lastly exposed as a LDES.</p>
+<pre class="language-ttl highlight">@<c- g>prefix</c-> <c- g>rdfs</c->:   <c- o>&lt;</c-><c- g>http</c->:<c- o>//</c-><c- g>www</c->.<c- g>w3</c->.<c- g>org</c-><c- o>/</c-><c- mi>2000</c-><c- o>/</c-><c- mi>01</c-><c- o>/</c-><c- g>rdf</c-><c- o>-</c-><c- g>schema</c->#<c- o>></c-> .
+@<c- g>prefix</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->: <c- o>&lt;</c-><c- g>http</c->:<c- o>//</c-><c- g>purl</c->.<c- g>org</c-><c- o>/</c-><c- g>net</c-><c- o>/</c-><c- g>p</c-><c- o>-</c-><c- g>plan</c->#<c- o>></c-> .
+@<c- g>prefix</c-> <c- g>prov</c->:   <c- o>&lt;</c-><c- g>http</c->:<c- o>//</c-><c- g>www</c->.<c- g>w3</c->.<c- g>org</c-><c- o>/</c-><c- g>ns</c-><c- o>/</c-><c- g>prov</c->#<c- o>></c-> .
+@<c- g>prefix</c-> <c- g>sds</c->:    <c- o>&lt;</c-><c- g>http</c->:<c- o>//</c-><c- g>semweb</c->.<c- g>mmlab</c->.<c- g>be</c-><c- o>/</c-><c- g>ns</c-><c- o>/</c-><c- g>sds</c->#<c- o>></c-> .
+@<c- g>prefix</c-> <c- g>dcat</c->:   <c- o>&lt;</c-><c- g>https</c->:<c- o>//</c-><c- g>www</c->.<c- g>w3</c->.<c- g>org</c-><c- o>/</c-><c- g>ns</c-><c- o>/</c-><c- g>dcat</c->#<c- o>></c-> .
+@<c- g>prefix</c-> :       <c- o>&lt;</c->#<c- o>></c-> .
 
-<c- g>&lt;somePlan></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Plan</c-><c- p>;</c->
-  <c- nn>rdfs:</c-><c- f>comment</c-> <c- s>"A epic plan to map csv file to a LDES"</c-><c- p>.</c->
+<c- o>&lt;</c-><c- g>somePlan</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Plan</c-><c- c1>;</c->
+  <c- g>rdfs</c->:<c- g>comment</c-> <c- u>"</c-><c- s>A epic plan to map csv file to a LDES</c-><c- u>"</c->.
 
 
-<c- g>&lt;csvLocationVar></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Variable</c-><c- p>;</c->
-  <c- nn>p-plan:</c-><c- f>isVariableOfPlan</c-> <c- g>&lt;somePlan></c-><c- p>;</c->
-  <c- nn>rdfs:</c-><c- f>comment</c-> <c- s>"Location of the CSV file"</c-><c- p>.</c->
+# <c- g>Specify</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c-> <c- g>variables</c-> 
+
+<c- o>&lt;</c-><c- g>csvLocationVar</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Variable</c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isVariableOfPlan</c-> <c- o>&lt;</c-><c- g>somePlan</c-><c- o>></c-><c- c1>;</c->
+  <c- g>rdfs</c->:<c- g>comment</c-> <c- u>"</c-><c- s>Location of the CSV file</c-><c- u>"</c->.
   
-<c- nn>:</c-><c- f>csvLocation</c-><c- c>#1 rdfs:subClassOf &lt;csvLocationVar>.</c->
+<c- nl>:csvLocation</c-><c- sc>#1</c-> <c- g>rdfs</c->:<c- g>subClassOf</c-> <c- o>&lt;</c-><c- g>csvLocationVar</c-><c- o>></c->.
 
-<c- g>&lt;rmlConfigVar></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Variable</c-><c- p>;</c->
-  <c- nn>p-plan:</c-><c- f>isVariableOfPlan</c-> <c- g>&lt;somePlan></c-><c- p>;</c->
-  <c- nn>rdfs:</c-><c- f>comment</c-> <c- s>"Location of RML config file"</c-><c- p>.</c->
+<c- o>&lt;</c-><c- g>rmlConfigVar</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Variable</c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isVariableOfPlan</c-> <c- o>&lt;</c-><c- g>somePlan</c-><c- o>></c-><c- c1>;</c->
+  <c- g>rdfs</c->:<c- g>comment</c-> <c- u>"</c-><c- s>Location of RML config file</c-><c- u>"</c->.
 
-<c- nn>:</c-><c- f>rmlConfig</c-><c- c>#1 rdfs:subClassOf &lt;rmlConfigVar>.</c->
+<c- nl>:rmlConfig</c-><c- sc>#1</c-> <c- g>rdfs</c->:<c- g>subClassOf</c-> <c- o>&lt;</c-><c- g>rmlConfigVar</c-><c- o>></c->.
 
-<c- g>&lt;bucketConfigVar></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Variable</c-><c- p>;</c->
-  <c- nn>p-plan:</c-><c- f>isVariableOfPlan</c-> <c- g>&lt;somePlan></c-><c- p>;</c->
-  <c- nn>rdfs:</c-><c- f>comment</c-> <c- s>"Location of RML config file"</c-><c- p>.</c->
+<c- o>&lt;</c-><c- g>bucketConfigVar</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Variable</c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isVariableOfPlan</c-> <c- o>&lt;</c-><c- g>somePlan</c-><c- o>></c-><c- c1>;</c->
+  <c- g>rdfs</c->:<c- g>comment</c-> <c- u>"</c-><c- s>Location of RML config file</c-><c- u>"</c->.
   
-<c- nn>:</c-><c- f>bucketConfig</c-><c- c>#1 rdfs:subClassOf &lt;bucketConfigVar>.</c->
+<c- nl>:bucketConfig</c-><c- sc>#1</c-> <c- g>rdfs</c->:<c- g>subClassOf</c-> <c- o>&lt;</c-><c- g>bucketConfigVar</c-><c- o>></c->.
 
-<c- g>&lt;ldesServerConfigVar></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Variable</c-><c- p>;</c->
-  <c- nn>p-plan:</c-><c- f>isVariableOfPlan</c-> <c- g>&lt;ldesServerConfig></c-><c- p>;</c->
-  <c- nn>rdfs:</c-><c- f>subClassOf</c-> <c- g>&lt;LdesConfig></c-><c- p>.</c->
+<c- o>&lt;</c-><c- g>ldesServerConfigVar</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Variable</c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isVariableOfPlan</c-> <c- o>&lt;</c-><c- g>ldesServerConfig</c-><c- o>></c-><c- c1>;</c->
+  <c- g>rdfs</c->:<c- g>subClassOf</c-> <c- o>&lt;</c-><c- g>LdesConfig</c-><c- o>></c->.
   
-<c- nn>:</c-><c- f>ldesServerConfig</c-><c- c>#1 rdfs:subClassOf &lt;ldesServerConfigVar>.</c->
+<c- nl>:ldesServerConfig</c-><c- sc>#1</c-> <c- g>rdfs</c->:<c- g>subClassOf</c-> <c- o>&lt;</c-><c- g>ldesServerConfigVar</c-><c- o>></c->.
 
-<c- g>&lt;streamVar></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Variable</c-><c- p>;</c->
-  <c- nn>p-plan:</c-><c- f>isVariableOfPlan</c-> <c- g>&lt;somePlan></c-><c- p>;</c->
-  <c- nn>rdfs:</c-><c- f>subClassOf</c-> <c- g>&lt;Channel></c-><c- p>.</c->
-  
-<c- nn>:</c-><c- f>stream</c-><c- c>#1 rdfs:subClassOf &lt;streamVar>.</c->
-<c- nn>:</c-><c- f>stream</c-><c- c>#2 rdfs:subClassOf &lt;streamVar>.</c->
-<c- nn>:</c-><c- f>stream</c-><c- c>#3 rdfs:subClassOf &lt;streamVar>.</c->
+<c- o>&lt;</c-><c- g>streamVar</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Variable</c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isVariableOfPlan</c-> <c- o>&lt;</c-><c- g>somePlan</c-><c- o>></c-><c- c1>;</c->
+  <c- g>rdfs</c->:<c- g>subClassOf</c-> <c- o>&lt;</c-><c- g>Channel</c-><c- o>></c->.
+
+<c- nl>:stream</c-><c- sc>#1</c-> <c- g>rdfs</c->:<c- g>subClassOf</c-> <c- o>&lt;</c-><c- g>streamVar</c-><c- o>></c->.
+<c- nl>:stream</c-><c- sc>#2</c-> <c- g>rdfs</c->:<c- g>subClassOf</c-> <c- o>&lt;</c-><c- g>streamVar</c-><c- o>></c->.
+<c- nl>:stream</c-><c- sc>#3</c-> <c- g>rdfs</c->:<c- g>subClassOf</c-> <c- o>&lt;</c-><c- g>streamVar</c-><c- o>></c->.
 
 
-<c- g>&lt;readStep></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Step</c-><c- p>;</c->
-  <c- nn>p-plan:</c-><c- f>hasInputVar</c-> <c- nn>:</c-><c- f>csvLocation</c-><c- c>#1;</c->
-  <c- nn>p-plan:</c-><c- f>isStepOfPlan</c-> <c- g>&lt;somePlan></c-><c- p>;</c->
-  <c- nn>p-plan:</c-><c- f>hasOutputVar</c-> <c- nn>:</c-><c- f>stream</c-><c- c>#1.</c->
+# <c- g>Specifiy</c-> <c- g>steps</c-> <c- g>in</c-> <c- g>the</c-> <c- g>plan</c->
 
-<c- g>&lt;rmlStep></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Step</c-><c- p>;</c->
-  <c- b>a</c-> rmlStep<c- p>;</c->
-  <c- nn>p-plan:</c-><c- f>hasInputVar</c-> <c- nn>:</c-><c- f>rmlConfig</c-><c- c>#1, :stream#1;</c->
-  <c- nn>p-plan:</c-><c- f>hasOutputVar</c-> <c- nn>:</c-><c- f>stream</c-><c- c>#2;</c->
-  <c- nn>p-plan:</c-><c- f>isPreceededBy</c-> <c- g>&lt;readStep></c-><c- p>;</c->
-  <c- nn>p-plan:</c-><c- f>isStepOfPlan</c-> <c- g>&lt;somePlan></c-><c- p>;</c->
-  <c- nn>rdfs:</c-><c- f>comment</c-> <c- s>"Map CSV rows to RML"</c-><c- p>.</c->
+<c- o>&lt;</c-><c- g>readStep</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Step</c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>hasInputVar</c-> :<c- g>csvLocation</c-><c- sc>#1</c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isStepOfPlan</c-> <c- o>&lt;</c-><c- g>somePlan</c-><c- o>></c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>hasOutputVar</c-> :<c- g>stream</c-><c- sc>#1</c->.
 
-<c- g>&lt;bucketStep></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Step</c-><c- p>;</c->
-  <c- nn>p-plan:</c-><c- f>hasInputVar</c-> <c- nn>:</c-><c- f>bucketConfig</c-><c- c>#1, :stream#2;</c->
-  <c- nn>p-plan:</c-><c- f>hasOutputVar</c-> <c- nn>:</c-><c- f>stream</c-><c- c>#3;</c->
-  <c- nn>p-plan:</c-><c- f>isPreceededBy</c-> <c- g>&lt;rmlStep></c-><c- p>;</c->
-  <c- nn>p-plan:</c-><c- f>isStepOfPlan</c-> <c- g>&lt;somePlan></c-><c- p>;</c->
-  <c- nn>rdfs:</c-><c- f>comment</c-> <c- s>"Add geospatial bucketization"</c-><c- p>.</c->
+<c- o>&lt;</c-><c- g>rmlStep</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Step</c-><c- c1>;</c->
+  <c- g>a</c-> <c- g>rmlStep</c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>hasInputVar</c-> :<c- g>rmlConfig</c-><c- sc>#1</c->, :<c- g>stream</c-><c- sc>#1</c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>hasOutputVar</c-> :<c- g>stream</c-><c- sc>#2</c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isPreceededBy</c-> <c- o>&lt;</c-><c- g>readStep</c-><c- o>></c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isStepOfPlan</c-> <c- o>&lt;</c-><c- g>somePlan</c-><c- o>></c-><c- c1>;</c->
+  <c- g>rdfs</c->:<c- g>comment</c-> <c- u>"</c-><c- s>Map CSV rows to RML</c-><c- u>"</c->.
 
-<c- g>&lt;ldesStep></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Step</c-><c- p>;</c->
-  <c- nn>p-plan:</c-><c- f>hasInputVar</c-> <c- nn>:</c-><c- f>ldesServerConfig</c-><c- c>#1, :stream#3;</c->
-  <c- nn>p-plan:</c-><c- f>isPreceededBy</c-> <c- g>&lt;bucketStep></c-><c- p>;</c->
-  <c- nn>p-plan:</c-><c- f>isStepOfPlan</c-> <c- g>&lt;epicPlan></c-><c- p>;</c->
-  <c- nn>rdfs:</c-><c- f>comment</c-> <c- s>"Expose LDES"</c-><c- p>.</c->
+<c- o>&lt;</c-><c- g>bucketStep</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Step</c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>hasInputVar</c-> :<c- g>bucketConfig</c-><c- sc>#1</c->, :<c- g>stream</c-><c- sc>#2</c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>hasOutputVar</c-> :<c- g>stream</c-><c- sc>#3</c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isPreceededBy</c-> <c- o>&lt;</c-><c- g>rmlStep</c-><c- o>></c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isStepOfPlan</c-> <c- o>&lt;</c-><c- g>somePlan</c-><c- o>></c-><c- c1>;</c->
+  <c- g>rdfs</c->:<c- g>comment</c-> <c- u>"</c-><c- s>Add geospatial bucketization</c-><c- u>"</c->.
+
+<c- o>&lt;</c-><c- g>ldesStep</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Step</c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>hasInputVar</c-> :<c- g>ldesServerConfig</c-><c- sc>#1</c->, :<c- g>stream</c-><c- sc>#3</c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isPreceededBy</c-> <c- o>&lt;</c-><c- g>bucketStep</c-><c- o>></c-><c- c1>;</c->
+  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isStepOfPlan</c-> <c- o>&lt;</c-><c- g>epicPlan</c-><c- o>></c-><c- c1>;</c->
+  <c- g>rdfs</c->:<c- g>comment</c-> <c- u>"</c-><c- s>Expose LDES</c-><c- u>"</c->.
 </pre>
-   <p class="note" role="note"><span>Note:</span> This is my understanding of how <code>p-plan:Variable</code> work, please update if wrong.</p>
-   <p class="note" role="note"><span>Note:</span> This <code>p-plan:Plan</code> does not explicitely inform how to connect these Steps together, see the Connector Architecture for this.</p>
+   <p class="note" role="note"><span>Note:</span> This <code>p-plan:Plan</code> does not explicitely inform how to connect these steps together, see the Connector Architecture for this.</p>
    <p>Activities can be generated after running the steps of the plan.
-These activities are each linked to a corresponding Step.</p>
+These activities are each linked to a corresponding <code>p-plan:step</code>.</p>
 <pre class="language-turtle highlight"><c- g>&lt;readCsv></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Activity</c-><c- p>;</c->
   <c- nn>p-plan:</c-><c- f>correspondsToStep</c-> <c- g>&lt;readStep></c-><c- p>;</c->
   <c- nn>prov:</c-><c- f>used</c-> <c- p>[</c->
@@ -1633,11 +1726,9 @@ These activities are each linked to a corresponding Step.</p>
 
 <c- g>&lt;csvStream></c-> <c- b>a</c-> <c- nn>sds:</c-><c- f>Stream</c-><c- p>;</c->
     <c- nn>prov:</c-><c- f>wasGeneratedBy</c-> <c- g>&lt;readCsv></c-><c- p>;</c-> 
-    <c- nn>sds:</c-><c- f>carries</c-> <c- p>[</c-> <c- b>a</c-> <c- nn>sds:</c-><c- f>Member</c-><c- p>;</c-> 
-      <c- nn>sds:</c-><c- f>Shape</c->  <c- g>&lt;sh></c-><c- p>;</c-> <c- p>];</c-> 
+    <c- nn>sds:</c-><c- f>carries</c-> <c- nn>sds:</c-><c- f>Record</c-><c- p>;</c-> 
     <c- nn>p-plan:</c-><c- f>correspondsToVariable</c-> <c- nn>:</c-><c- f>stream</c-><c- c>#1; </c->
     <c- nn>sds:</c-><c- f>dataset</c-> <c- p>[</c-> <c- b>a</c->  <c- nn>dcat:</c-><c- f>Dataset</c-> <c- p>].</c-> 
-
 
 <c- g>&lt;rmlProc></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Activity</c-><c- p>;</c-> 
   <c- nn>p-plan:</c-><c- f>correspondsToStep</c-> <c- g>&lt;rmlStep></c-><c- p>;</c-> 
@@ -1650,25 +1741,23 @@ These activities are each linked to a corresponding Step.</p>
 <c- g>&lt;rmlStream></c-> <c- b>a</c-> <c- nn>sds:</c-><c- f>Stream</c-><c- p>;</c->
   <c- b>a</c-> <c- nn>sds:</c-><c- f>Stream</c-><c- p>;</c->
   <c- nn>prov:</c-><c- f>wasGeneratedBy</c-> <c- g>&lt;rmlProc></c-><c- p>;</c->
-  <c- nn>sds:</c-><c- f>carries</c-> <c- p>[</c-> <c- b>a</c-> <c- nn>sds:</c-><c- f>Member</c-><c- p>;</c-> 
-    <c- nn>sds:</c-><c- f>Shape</c-> <c- g>&lt;sh></c-><c- p>;</c-> <c- p>];</c->
+  <c- nn>sds:</c-><c- f>carries</c-> <c- nn>sds:</c-><c- f>Member</c-><c- p>;</c-> 
+  <c- nn>sds:</c-><c- f>Shape</c-> <c- g>&lt;sh></c-><c- p>;</c-> 
   <c- nn>p-plan:</c-><c- f>correspondsToVariable</c-> <c- nn>:</c-><c- f>stream</c-><c- c>#2;</c->
   <c- nn>sds:</c-><c- f>dataset</c-> <c- p>[</c-> <c- b>a</c-> <c- nn>dcat:</c-><c- f>Dataset</c-> <c- p>].</c->
 
 <c- g>&lt;bucketization></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Activiy</c-><c- p>;</c->
   <c- nn>p-plan:</c-><c- f>correspondsToStep</c-> <c- g>&lt;bucketStep></c-><c- p>;</c->
   <c- nn>prov:</c-><c- f>used</c-> <c- g>&lt;rmlStream></c-><c- p>,</c-> <c- p>[</c->
-      <c- nn>ldes:</c-><c- f>bucketType</c-> <c- s>"substring"</c-><c- p>;</c->
-      <c- nn>ldes:</c-><c- f>propertyPath</c-> <c- nn>foaf:</c-><c- f>name</c-><c- p>;</c->
-      <c- nn>ldes:</c-><c- f>bucketPath</c-> <c- nn>ldes:</c-><c- f>substringBucket</c-><c- p>;</c->
+      <c- nn>ldes:</c-><c- f>bucketType</c-> <c- nn>ldes:</c-><c- f>subject</c-><c- p>;</c->
+      <c- nn>ldes:</c-><c- f>propertyPath</c-> <c- nn>ex:</c-><c- f>x</c-><c- p>;</c->
   <c- p>];</c->
   <c- nn>prov:</c-><c- f>startedAtTime</c-> <c- s>"1650889052"</c-><c- p>.</c->
 
 <c- g>&lt;bucketizedStream></c-> <c- b>a</c-> <c- nn>sds:</c-><c- f>Stream</c-><c- p>;</c->
     <c- nn>prov:</c-><c- f>wasGeneratedBy</c-> <c- g>&lt;bucketization></c-><c- p>;</c->
-    <c- nn>sds:</c-><c- f>carries</c-> <c- p>[</c->
-      <c- b>a</c-> ImmutableMember<c- p>;</c->
-      <c- nn>sds:</c-><c- f>shape</c-> <c- g>&lt;sh></c-> <c- p>];</c->
+    <c- nn>sds:</c-><c- f>carries</c-> <c- nn>sds:</c-><c- f>Member</c-><c- p>;</c->
+    <c- nn>sds:</c-><c- f>shape</c-> <c- g>&lt;sh></c-><c- p>;</c->
     <c- nn>p-plan:</c-><c- f>correspondsToVariable</c-> <c- nn>:</c-><c- f>stream</c-><c- c>#3;</c->
     <c- nn>sds:</c-><c- f>dataset</c-> <c- p>[</c-> <c- b>a</c-> <c- nn>dcat:</c-><c- f>Dataset</c-> <c- p>]</c->
 
@@ -1679,6 +1768,32 @@ These activities are each linked to a corresponding Step.</p>
     <c- nn>p-plan:</c-><c- f>correspondsToVariable</c-> <c- nn>:</c-><c- f>ldesServerConfig</c-><c- c>#1</c->
   <c- p>];</c->
   <c- nn>prov:</c-><c- f>startedAtTime</c-> <c- s>"1650889452"</c-><c- p>.</c->
+</pre>
+   <h3 class="heading settled" data-level="3.2" id="sds-data②"><span class="secno">3.2. </span><span class="content">SDS Data</span><a class="self-link" href="#sds-data②"></a></h3>
+<pre class="language-turtle highlight"><c- p>[]</c-> <c- nn>sds:</c-><c- f>payload</c-> <c- s>"a,v,d"</c-><c- o>^^</c->ex:csvRow<c- p>;</c->
+   <c- nn>sds:</c-><c- f>stream</c-> <c- g>&lt;csvStream></c-><c- p>.</c->
+
+
+<c- nn>ex:</c-><c- f>sample1</c-> <c- nn>ex:</c-><c- f>x</c-> <c- mi>1</c-><c- p>;</c->
+           <c- nn>ex:</c-><c- f>y</c-> <c- mi>2</c-><c- p>.</c-> 
+
+<c- c># The rmlStream contains a sds:member ex:sample1</c->
+<c- p>[]</c-> <c- nn>sds:</c-><c- f>payload</c-> <c- nn>ex:</c-><c- f>sample1</c-><c- p>;</c->
+   <c- nn>sds:</c-><c- f>stream</c-> <c- g>&lt;rmlStream></c-><c- p>.</c->
+
+
+<c- g>&lt;bucket1></c-> <c- nn>sds:</c-><c- f>relation</c-> <c- p>[</c->
+  <c- nn>sds:</c-><c- f>relationType</c-> <c- nn>tree:</c-><c- f>GreaterThanRelation</c-> <c- p>;</c->
+  <c- nn>sds:</c-><c- f>relationBucket</c-> <c- g>&lt;bucket2></c-> <c- p>;</c->
+  <c- nn>sds:</c-><c- f>relationValue</c-> <c- mi>1</c-><c- p>;</c->
+  <c- nn>sds:</c-><c- f>relationPath</c-> <c- nn>ex:</c-><c- f>x</c-> 
+<c- p>]</c-> <c- p>.</c->
+
+<c- c># The bucketizedStream also contains this member ex:sample1,</c->
+<c- c># but added a sds:bucket property pointing to &lt;bucket2></c->
+<c- p>[]</c-> <c- nn>sds:</c-><c- f>stream</c-> <c- g>&lt;bucketizedStream></c-><c- p>;</c->
+   <c- nn>sds:</c-><c- f>payload</c-> <c- nn>ex:</c-><c- f>sample1</c-><c- p>;</c->
+   <c- nn>sds:</c-><c- f>bucket</c-> <c- g>&lt;bucket2></c-><c- p>.</c->
 </pre>
   </main>
   <div data-fill-with="conformance">
