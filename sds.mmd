@@ -1,0 +1,55 @@
+%%{init: { "flowchart": { "curve": "linear" }, "logLevel": 2 } }%%
+graph 
+  E[p-plan:Entity]
+  SH[sh:ShapeNode]
+  Stream[sds:Stream]
+
+  Dataset
+  Activity
+  RecordType
+
+  A--> |prov:used| E
+
+  subgraph Activity
+    A[p-plan:Activity]
+    S[p-plan:Step]
+    RML[RML]
+    Buc[Bucketizer]
+    LD[LDESClient]
+
+    Buc.-> S
+    LD.-> S
+    RML.-> S
+    A--> |p-plan:correspondsToStep| S
+  end
+
+  Stream--> |sds:carries| R
+  Stream--> |sds:shape| SH
+
+
+  subgraph RecordType
+    direction BT
+    Mem[sds:Member]
+    IM[sds:ImmutableMember]
+    R[sds:Record]
+
+    Mem.->R
+    IM.->Mem
+  end
+
+  subgraph Dataset
+    direction BT
+    Data[dcat:Dataset]
+    TC[tree:Collection]
+    SH2[Shape]
+    LDS[ldes:EventStream]
+
+    TC-->|tree:shape|SH2
+    TC.->Data
+    LDS.->TC
+  end
+  
+  Stream .-> E
+  Stream--> |p-plan:wasGeneratedBy| A
+  Stream --> |sds:dataset|Data 
+
