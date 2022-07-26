@@ -1223,7 +1223,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 5f7b0e20, updated Tue Aug 18 15:46:28 2020 -0700" name="generator">
   <link href="https://w3id.org/sds/specification" rel="canonical">
-  <meta content="f4364456034bc203bafaf88ea6ee6452965cb3a3" name="document-revision">
+  <meta content="b8b42a21c4192787bdd6c4c413305f6944f109df" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1433,7 +1433,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">The Smart Data Specification for Semantically Describing Streams (SDS)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2022-06-28">28 June 2022</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2022-07-26">26 July 2022</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1448,7 +1448,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 28 June 2022,
+In addition, as of 26 July 2022,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -1640,79 +1640,79 @@ The range of <code>sds:payload</code> is different:</p>
    <p>When creating a <code>sds:Stream</code> the user should create a <code>p-plan:Plan</code> indicating the expected transformations on the data stream.</p>
    <p>The example covers a plan that starts from a csv file, transforms it to RDF with a RML Mapper.
 The generated RDF is bucketized based on the <code>foaf:label</code> property and is lastly exposed as a LDES.</p>
-<pre class="language-ttl highlight">@<c- g>prefix</c-> <c- g>rdfs</c->:   <c- o>&lt;</c-><c- g>http</c->:<c- o>//</c-><c- g>www</c->.<c- g>w3</c->.<c- g>org</c-><c- o>/</c-><c- mi>2000</c-><c- o>/</c-><c- mi>01</c-><c- o>/</c-><c- g>rdf</c-><c- o>-</c-><c- g>schema</c->#<c- o>></c-> .
-@<c- g>prefix</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->: <c- o>&lt;</c-><c- g>http</c->:<c- o>//</c-><c- g>purl</c->.<c- g>org</c-><c- o>/</c-><c- g>net</c-><c- o>/</c-><c- g>p</c-><c- o>-</c-><c- g>plan</c->#<c- o>></c-> .
-@<c- g>prefix</c-> <c- g>prov</c->:   <c- o>&lt;</c-><c- g>http</c->:<c- o>//</c-><c- g>www</c->.<c- g>w3</c->.<c- g>org</c-><c- o>/</c-><c- g>ns</c-><c- o>/</c-><c- g>prov</c->#<c- o>></c-> .
-@<c- g>prefix</c-> <c- g>sds</c->:    <c- o>&lt;</c-><c- g>http</c->:<c- o>//</c-><c- g>semweb</c->.<c- g>mmlab</c->.<c- g>be</c-><c- o>/</c-><c- g>ns</c-><c- o>/</c-><c- g>sds</c->#<c- o>></c-> .
-@<c- g>prefix</c-> <c- g>dcat</c->:   <c- o>&lt;</c-><c- g>https</c->:<c- o>//</c-><c- g>www</c->.<c- g>w3</c->.<c- g>org</c-><c- o>/</c-><c- g>ns</c-><c- o>/</c-><c- g>dcat</c->#<c- o>></c-> .
-@<c- g>prefix</c-> :       <c- o>&lt;</c->#<c- o>></c-> .
+<pre class="language-turtle highlight"><c- k>@prefix</c-> <c- nn>rdfs:</c->   <c- g>&lt;http://www.w3.org/2000/01/rdf-schema#></c-> <c- p>.</c->
+<c- k>@prefix</c-> <c- nn>p-plan:</c-> <c- g>&lt;http://purl.org/net/p-plan#></c-> <c- p>.</c->
+<c- k>@prefix</c-> <c- nn>prov:</c->   <c- g>&lt;http://www.w3.org/ns/prov#></c-> <c- p>.</c->
+<c- k>@prefix</c-> <c- nn>sds:</c->    <c- g>&lt;http://semweb.mmlab.be/ns/sds#></c-> <c- p>.</c->
+<c- k>@prefix</c-> <c- nn>dcat:</c->   <c- g>&lt;https://www.w3.org/ns/dcat#></c-> <c- p>.</c->
+<c- k>@prefix</c-> <c- nn>:</c->       <c- g>&lt;#></c-> <c- p>.</c->
 
-<c- o>&lt;</c-><c- g>somePlan</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Plan</c-><c- c1>;</c->
-  <c- g>rdfs</c->:<c- g>comment</c-> <c- u>"</c-><c- s>A epic plan to map csv file to a LDES</c-><c- u>"</c->.
+<c- g>&lt;somePlan></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Plan</c-><c- p>;</c->
+  <c- nn>rdfs:</c-><c- f>comment</c-> <c- s>"A epic plan to map csv file to a LDES"</c-><c- p>.</c->
 
 
-# <c- g>Specify</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c-> <c- g>variables</c-> 
+<c- c># Specify p-plan variables </c->
 
-<c- o>&lt;</c-><c- g>csvLocationVar</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Variable</c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isVariableOfPlan</c-> <c- o>&lt;</c-><c- g>somePlan</c-><c- o>></c-><c- c1>;</c->
-  <c- g>rdfs</c->:<c- g>comment</c-> <c- u>"</c-><c- s>Location of the CSV file</c-><c- u>"</c->.
+<c- g>&lt;csvLocationVar></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Variable</c-><c- p>;</c->
+  <c- nn>p-plan:</c-><c- f>isVariableOfPlan</c-> <c- g>&lt;somePlan></c-><c- p>;</c->
+  <c- nn>rdfs:</c-><c- f>comment</c-> <c- s>"Location of the CSV file"</c-><c- p>.</c->
   
-<c- nl>:csvLocation</c-><c- sc>#1</c-> <c- g>rdfs</c->:<c- g>subClassOf</c-> <c- o>&lt;</c-><c- g>csvLocationVar</c-><c- o>></c->.
+<c- nn>:</c-><c- f>csvLocation</c-><c- c>#1 rdfs:subClassOf &lt;csvLocationVar>.</c->
 
-<c- o>&lt;</c-><c- g>rmlConfigVar</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Variable</c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isVariableOfPlan</c-> <c- o>&lt;</c-><c- g>somePlan</c-><c- o>></c-><c- c1>;</c->
-  <c- g>rdfs</c->:<c- g>comment</c-> <c- u>"</c-><c- s>Location of RML config file</c-><c- u>"</c->.
+<c- g>&lt;rmlConfigVar></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Variable</c-><c- p>;</c->
+  <c- nn>p-plan:</c-><c- f>isVariableOfPlan</c-> <c- g>&lt;somePlan></c-><c- p>;</c->
+  <c- nn>rdfs:</c-><c- f>comment</c-> <c- s>"Location of RML config file"</c-><c- p>.</c->
 
-<c- nl>:rmlConfig</c-><c- sc>#1</c-> <c- g>rdfs</c->:<c- g>subClassOf</c-> <c- o>&lt;</c-><c- g>rmlConfigVar</c-><c- o>></c->.
+<c- nn>:</c-><c- f>rmlConfig</c-><c- c>#1 rdfs:subClassOf &lt;rmlConfigVar>.</c->
 
-<c- o>&lt;</c-><c- g>bucketConfigVar</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Variable</c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isVariableOfPlan</c-> <c- o>&lt;</c-><c- g>somePlan</c-><c- o>></c-><c- c1>;</c->
-  <c- g>rdfs</c->:<c- g>comment</c-> <c- u>"</c-><c- s>Location of RML config file</c-><c- u>"</c->.
+<c- g>&lt;bucketConfigVar></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Variable</c-><c- p>;</c->
+  <c- nn>p-plan:</c-><c- f>isVariableOfPlan</c-> <c- g>&lt;somePlan></c-><c- p>;</c->
+  <c- nn>rdfs:</c-><c- f>comment</c-> <c- s>"Location of RML config file"</c-><c- p>.</c->
   
-<c- nl>:bucketConfig</c-><c- sc>#1</c-> <c- g>rdfs</c->:<c- g>subClassOf</c-> <c- o>&lt;</c-><c- g>bucketConfigVar</c-><c- o>></c->.
+<c- nn>:</c-><c- f>bucketConfig</c-><c- c>#1 rdfs:subClassOf &lt;bucketConfigVar>.</c->
 
-<c- o>&lt;</c-><c- g>ldesServerConfigVar</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Variable</c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isVariableOfPlan</c-> <c- o>&lt;</c-><c- g>ldesServerConfig</c-><c- o>></c-><c- c1>;</c->
-  <c- g>rdfs</c->:<c- g>subClassOf</c-> <c- o>&lt;</c-><c- g>LdesConfig</c-><c- o>></c->.
+<c- g>&lt;ldesServerConfigVar></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Variable</c-><c- p>;</c->
+  <c- nn>p-plan:</c-><c- f>isVariableOfPlan</c-> <c- g>&lt;ldesServerConfig></c-><c- p>;</c->
+  <c- nn>rdfs:</c-><c- f>subClassOf</c-> <c- g>&lt;LdesConfig></c-><c- p>.</c->
   
-<c- nl>:ldesServerConfig</c-><c- sc>#1</c-> <c- g>rdfs</c->:<c- g>subClassOf</c-> <c- o>&lt;</c-><c- g>ldesServerConfigVar</c-><c- o>></c->.
+<c- nn>:</c-><c- f>ldesServerConfig</c-><c- c>#1 rdfs:subClassOf &lt;ldesServerConfigVar>.</c->
 
-<c- o>&lt;</c-><c- g>streamVar</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Variable</c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isVariableOfPlan</c-> <c- o>&lt;</c-><c- g>somePlan</c-><c- o>></c-><c- c1>;</c->
-  <c- g>rdfs</c->:<c- g>subClassOf</c-> <c- o>&lt;</c-><c- g>Channel</c-><c- o>></c->.
+<c- g>&lt;streamVar></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Variable</c-><c- p>;</c->
+  <c- nn>p-plan:</c-><c- f>isVariableOfPlan</c-> <c- g>&lt;somePlan></c-><c- p>;</c->
+  <c- nn>rdfs:</c-><c- f>subClassOf</c-> <c- g>&lt;Channel></c-><c- p>.</c->
 
-<c- nl>:stream</c-><c- sc>#1</c-> <c- g>rdfs</c->:<c- g>subClassOf</c-> <c- o>&lt;</c-><c- g>streamVar</c-><c- o>></c->.
-<c- nl>:stream</c-><c- sc>#2</c-> <c- g>rdfs</c->:<c- g>subClassOf</c-> <c- o>&lt;</c-><c- g>streamVar</c-><c- o>></c->.
-<c- nl>:stream</c-><c- sc>#3</c-> <c- g>rdfs</c->:<c- g>subClassOf</c-> <c- o>&lt;</c-><c- g>streamVar</c-><c- o>></c->.
+<c- nn>:</c-><c- f>stream</c-><c- c>#1 rdfs:subClassOf &lt;streamVar>.</c->
+<c- nn>:</c-><c- f>stream</c-><c- c>#2 rdfs:subClassOf &lt;streamVar>.</c->
+<c- nn>:</c-><c- f>stream</c-><c- c>#3 rdfs:subClassOf &lt;streamVar>.</c->
 
 
-# <c- g>Specifiy</c-> <c- g>steps</c-> <c- g>in</c-> <c- g>the</c-> <c- g>plan</c->
+<c- c># Specifiy steps in the plan</c->
 
-<c- o>&lt;</c-><c- g>readStep</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Step</c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>hasInputVar</c-> :<c- g>csvLocation</c-><c- sc>#1</c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isStepOfPlan</c-> <c- o>&lt;</c-><c- g>somePlan</c-><c- o>></c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>hasOutputVar</c-> :<c- g>stream</c-><c- sc>#1</c->.
+<c- g>&lt;readStep></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Step</c-><c- p>;</c->
+  <c- nn>p-plan:</c-><c- f>hasInputVar</c-> <c- nn>:</c-><c- f>csvLocation</c-><c- c>#1;</c->
+  <c- nn>p-plan:</c-><c- f>isStepOfPlan</c-> <c- g>&lt;somePlan></c-><c- p>;</c->
+  <c- nn>p-plan:</c-><c- f>hasOutputVar</c-> <c- nn>:</c-><c- f>stream</c-><c- c>#1.</c->
 
-<c- o>&lt;</c-><c- g>rmlStep</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Step</c-><c- c1>;</c->
-  <c- g>a</c-> <c- g>rmlStep</c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>hasInputVar</c-> :<c- g>rmlConfig</c-><c- sc>#1</c->, :<c- g>stream</c-><c- sc>#1</c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>hasOutputVar</c-> :<c- g>stream</c-><c- sc>#2</c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isPreceededBy</c-> <c- o>&lt;</c-><c- g>readStep</c-><c- o>></c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isStepOfPlan</c-> <c- o>&lt;</c-><c- g>somePlan</c-><c- o>></c-><c- c1>;</c->
-  <c- g>rdfs</c->:<c- g>comment</c-> <c- u>"</c-><c- s>Map CSV rows to RML</c-><c- u>"</c->.
+<c- g>&lt;rmlStep></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Step</c-><c- p>;</c->
+  <c- b>a</c-> rmlStep<c- p>;</c->
+  <c- nn>p-plan:</c-><c- f>hasInputVar</c-> <c- nn>:</c-><c- f>rmlConfig</c-><c- c>#1, :stream#1;</c->
+  <c- nn>p-plan:</c-><c- f>hasOutputVar</c-> <c- nn>:</c-><c- f>stream</c-><c- c>#2;</c->
+  <c- nn>p-plan:</c-><c- f>isPrecededBy</c-> <c- g>&lt;readStep></c-><c- p>;</c->
+  <c- nn>p-plan:</c-><c- f>isStepOfPlan</c-> <c- g>&lt;somePlan></c-><c- p>;</c->
+  <c- nn>rdfs:</c-><c- f>comment</c-> <c- s>"Map CSV rows to RML"</c-><c- p>.</c->
 
-<c- o>&lt;</c-><c- g>bucketStep</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Step</c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>hasInputVar</c-> :<c- g>bucketConfig</c-><c- sc>#1</c->, :<c- g>stream</c-><c- sc>#2</c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>hasOutputVar</c-> :<c- g>stream</c-><c- sc>#3</c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isPreceededBy</c-> <c- o>&lt;</c-><c- g>rmlStep</c-><c- o>></c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isStepOfPlan</c-> <c- o>&lt;</c-><c- g>somePlan</c-><c- o>></c-><c- c1>;</c->
-  <c- g>rdfs</c->:<c- g>comment</c-> <c- u>"</c-><c- s>Add geospatial bucketization</c-><c- u>"</c->.
+<c- g>&lt;bucketStep></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Step</c-><c- p>;</c->
+  <c- nn>p-plan:</c-><c- f>hasInputVar</c-> <c- nn>:</c-><c- f>bucketConfig</c-><c- c>#1, :stream#2;</c->
+  <c- nn>p-plan:</c-><c- f>hasOutputVar</c-> <c- nn>:</c-><c- f>stream</c-><c- c>#3;</c->
+  <c- nn>p-plan:</c-><c- f>isPrecededBy</c-> <c- g>&lt;rmlStep></c-><c- p>;</c->
+  <c- nn>p-plan:</c-><c- f>isStepOfPlan</c-> <c- g>&lt;somePlan></c-><c- p>;</c->
+  <c- nn>rdfs:</c-><c- f>comment</c-> <c- s>"Add geospatial bucketization"</c-><c- p>.</c->
 
-<c- o>&lt;</c-><c- g>ldesStep</c-><c- o>></c-> <c- g>a</c-> <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>Step</c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>hasInputVar</c-> :<c- g>ldesServerConfig</c-><c- sc>#1</c->, :<c- g>stream</c-><c- sc>#3</c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isPreceededBy</c-> <c- o>&lt;</c-><c- g>bucketStep</c-><c- o>></c-><c- c1>;</c->
-  <c- g>p</c-><c- o>-</c-><c- g>plan</c->:<c- g>isStepOfPlan</c-> <c- o>&lt;</c-><c- g>epicPlan</c-><c- o>></c-><c- c1>;</c->
-  <c- g>rdfs</c->:<c- g>comment</c-> <c- u>"</c-><c- s>Expose LDES</c-><c- u>"</c->.
+<c- g>&lt;ldesStep></c-> <c- b>a</c-> <c- nn>p-plan:</c-><c- f>Step</c-><c- p>;</c->
+  <c- nn>p-plan:</c-><c- f>hasInputVar</c-> <c- nn>:</c-><c- f>ldesServerConfig</c-><c- c>#1, :stream#3;</c->
+  <c- nn>p-plan:</c-><c- f>isPrecededBy</c-> <c- g>&lt;bucketStep></c-><c- p>;</c->
+  <c- nn>p-plan:</c-><c- f>isStepOfPlan</c-> <c- g>&lt;epicPlan></c-><c- p>;</c->
+  <c- nn>rdfs:</c-><c- f>comment</c-> <c- s>"Expose LDES"</c-><c- p>.</c->
 </pre>
    <p class="note" role="note"><span>Note:</span> This <code>p-plan:Plan</code> does not explicitely inform how to connect these steps together, see the Connector Architecture for this.</p>
    <p>Activities can be generated after running the steps of the plan.
