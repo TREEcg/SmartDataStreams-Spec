@@ -1,8 +1,8 @@
 %%{init: { "flowchart": { "curve": "linear" }, "logLevel": 2 } }%%
-graph 
+graph LR 
+  Stream[sds:Stream]
   E[p-plan:Entity]
   SH[sh:ShapeNode]
-  Stream[sds:Stream]
 
   Dataset
   Activity
@@ -23,22 +23,22 @@ graph
     A--> |p-plan:correspondsToStep| S
   end
 
-  Stream--> |sds:carries| R
   Stream--> |sds:shape| SH
 
 
   subgraph RecordType
-    direction BT
+    R[sds:Record]
     Mem[sds:Member]
     IM[sds:ImmutableMember]
-    R[sds:Record]
 
-    Mem.->R
     IM.->Mem
+    Mem.->R
   end
 
+  Stream--> |sds:carries| R
+
   subgraph Dataset
-    direction BT
+    direction LR
     Data[dcat:Dataset]
     TC[tree:Collection]
     SH2[Shape]

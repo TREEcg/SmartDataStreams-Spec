@@ -1,0 +1,32 @@
+{
+    "@context": {
+        "sds": "https://w3id.org/sds#",
+        "p-plan": "http://purl.org/net/p-plan#",
+        "prov": "http://www.w3.org/ns/prov#",
+
+        "dataset": { "@id": "sds:dataset", "@type": "@id" },
+        "carries": { "@id": "sds:carries", "@type": "@id" },
+        "shape": { "@id": "sds:shape", "@type": "@id" },
+        "stream": { "@id": "sds:stream", "@type": "@id" },
+        "payload": { "@id": "sds:payload" },
+        "bucket": { "@id": "sds:bucket", "@type": "@id" },
+        "relationType": { "@id": "sds:relationType", "@type": "@id" },
+        "relationBucket": { "@id": "sds:relationBucket", "@type": "@id" },
+        "relationValue": { "@id": "sds:relationValue" },
+        "relationPath": { "@id": "sds:relationPath", "@type": "@id" },
+
+        "isVariableOfPlan": {"@id": "p-plan:isVariableOfPlan", "@type": "@id" },
+        "hasInputVar": {"@id": "p-plan:hasInputVar", "@type": "@id" },
+        "isStepOfPlan": {"@id": "p-plan:isStepOfPlan", "@type": "@id" },
+        "hasOutputVar": {"@id": "p-plan:hasOutputVar", "@type": "@id" },
+        "isPrecededBy": {"@id": "p-plan:isPrecededBy", "@type": "@id" },
+        "correspondsToVariable": {"@id": "p-plan:correspondsToVariable", "@type": "@id" },
+
+
+        "used": {"@id": "prov:used", "@type": "@id" },
+        "startedAtTime": {"@id": "prov:startedAtTime", "@type": "@id" },
+        "wasGeneratedBy": {"@id": "prov:wasGeneratedBy", "@type": "@id" }
+    }
+}
+
+

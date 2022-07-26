@@ -133,7 +133,7 @@ The example covers a plan that starts from a csv file, transforms it to RDF with
 The generated RDF is bucketized based on the `foaf:label` property and is lastly exposed as a LDES. 
 
 
-```ttl
+```turtle
 @prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix p-plan: <http://purl.org/net/p-plan#> .
 @prefix prov:   <http://www.w3.org/ns/prov#> .
@@ -191,20 +191,20 @@ The generated RDF is bucketized based on the `foaf:label` property and is lastly
   a rmlStep;
   p-plan:hasInputVar :rmlConfig#1, :stream#1;
   p-plan:hasOutputVar :stream#2;
-  p-plan:isPreceededBy <readStep>;
+  p-plan:isPrecededBy <readStep>;
   p-plan:isStepOfPlan <somePlan>;
   rdfs:comment "Map CSV rows to RML".
 
 <bucketStep> a p-plan:Step;
   p-plan:hasInputVar :bucketConfig#1, :stream#2;
   p-plan:hasOutputVar :stream#3;
-  p-plan:isPreceededBy <rmlStep>;
+  p-plan:isPrecededBy <rmlStep>;
   p-plan:isStepOfPlan <somePlan>;
   rdfs:comment "Add geospatial bucketization".
 
 <ldesStep> a p-plan:Step;
   p-plan:hasInputVar :ldesServerConfig#1, :stream#3;
-  p-plan:isPreceededBy <bucketStep>;
+  p-plan:isPrecededBy <bucketStep>;
   p-plan:isStepOfPlan <epicPlan>;
   rdfs:comment "Expose LDES".
 ```
