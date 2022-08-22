@@ -1,0 +1,63 @@
+@startuml
+'skinparam linetype ortho
+skinparam linetype polyline
+skinparam backgroundcolor transparent
+
+skinparam sequenceMessageAlign direction
+
+skinparam component {
+  Style rectangle
+}
+
+rectangle Dataset #lightgreen {
+  [ldes:EventStream] as ldes
+  [tree:Collection] as tree
+  [Shape] as sh
+  [dcat:Dataset] as ds
+}
+
+rectangle Activity #LightPink {
+  [p-plan:Activity] as act
+  [RML]
+  [Bucketizer]
+  [p-plan:Step] as step
+}
+
+rectangle RecordType #LightSkyBlue {
+  [sds:ImmutableMember] as imm
+  [sds:Member] as mem
+  [sds:Record] as rec
+}
+
+[sds:Stream] as stream
+[sh:ShapeNode] as shNode
+[p-plan:Entity] as entity
+
+' Dataset
+ldes --|> tree
+tree --> sh : "tree:shape"
+tree --|> ds
+
+' stream
+
+stream -up-> shNode : "sds:shape" 
+stream --|> entity
+
+stream --> act : "p-plan:wasGeneratedBy"
+stream --> rec : "sds:carries"
+stream --> ds : "sds:dataset"
+
+' activity
+
+[RML] --|> step
+[Bucketizer] --|> step
+
+act --> entity : "prov:used"
+act --> step : "p-plan:correspondsToStep"
+
+' Record
+imm --|> mem
+mem --|> rec
+
+@enduml
+

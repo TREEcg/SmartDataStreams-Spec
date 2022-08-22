@@ -5,7 +5,7 @@ A `sds:Stream` is a stream of objects that have undergone transformations which 
  * what the previous transformations were through `p-plan:wasGeneratedBy`, and
  * the `dcat:Dataset` is published
 
-The HTML specification can soon be found at https://w3id.org/sds/specification.
+The HTML specification can be found at https://w3id.org/sds/specification.
 
 This specification uses the [P-Plan specification](http://vocab.linkeddata.es/p-plan/) to describe previous steps taking that result in the current stream.
 
